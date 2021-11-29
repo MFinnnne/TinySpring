@@ -76,14 +76,14 @@ public class ClassScanner {
                 if (Constant.COMPONENT.equals(annotation.annotationType().getName())) {
                     final Object instance = newInstance(clazz);
                     if (instance != null) {
-                        IOC.getBeanMap().put(clazz.getName(), instance);
+                        IOC.getBeanMap().putIfAbsent(clazz.getName(), instance);
                         injectInstance(clazz);
                     }
                 }
                 if (Constant.REST_CONTROLLER.equals(annotation.annotationType().getName())) {
                     final Object newInstance = newInstance(clazz);
                     if (newInstance != null) {
-                        IOC.getBeanMap().put(clazz.getName(), newInstance);
+                        IOC.getBeanMap().putIfAbsent(clazz.getName(), newInstance);
                     }
                     //url->method
                     requestMapping(clazz, newInstance);
